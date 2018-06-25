@@ -351,23 +351,13 @@ class TweetController extends Controller
         'consumer_key'              => "Bi5jRvRMOdu7hIK8dpDXzt0MA",
         'consumer_secret'           => "OjwPMmtIKQCr9YedzmZYKOCtMTLkcsbXSNcgq2Em6hmRhUTso6",
     	);
-
+		$dt = $request->all();
 	    $url           = 'https://api.twitter.com/1.1/search/tweets.json';
-	    $getfield      = '?q=nasa&result_type=popular';
+	    $getfield      = $dt['val'];
 	    $requestMethod = 'GET';
 	    $twitter = new TwitterAPIExchange($settings);
 	    $tweets  = $twitter->setGetfield($getfield)->buildOauth($url, $requestMethod)->performRequest();
 	    $tweets = json_decode($tweets, true);
 	    return compact('tweets');
-	    // var_dump($users);die();
-	    /*for ($i = 0; $i <= 19; $i++) {
-	        $twitter           = new twitter_user();
-	        $twitter->user_id  = $users[$i]['id'];
-	        $twitter->name     = $users[$i]['name'];
-	        $twitter->sname    = $users[$i]['screen_name'];
-	        $twitter->location = $users[$i]['location'];
-	        $twitter->save();
-
-	    }*/
 	}
 }

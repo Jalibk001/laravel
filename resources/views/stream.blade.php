@@ -15,14 +15,13 @@
 	<script type="text/javascript">
 	$(document).ready(function()     
   	{  
-  		$('#div_id').click(function(){
-       	a=document.getElementById("dt");
-       	console.log(a);
-       })		
-  	   $.ajax({
+  		function search(val){
+  			val = "?q="+val;
+  			$.ajax({
        url: '/Get_Tweet',
        type: 'get',
        dataType: 'json',
+       data:{'val':val},
 	   success: function(data, text) {
 	   	var tweets;
   		var user;
@@ -41,20 +40,29 @@
 			div.innerHTML="<img src = "+img_url+" width='80px' height = '80px'> <b>"+user +"</b> <br/><b>"+tweet+" </b><br/>";
 			document.getElementById("div_id").appendChild(div);	
         }
+
 	   },
        error: function (XMLHttpRequest, textStatus, errorThrown) 
        {
          alert("error");
        }});
+  		}
+  	   
+       $('#sr').click(function(){
+       	
+       	var a=document.getElementById('dt');
+       	var x = a.elements;
+       	search(x[0].value);
+       })		   		
+  	})
 
-  	})		
 	</script>
 </head>
 <body>
 	<center><h1>Tweets</h1></center>
 	<form id="dt">
-		<input type="text" name="search"/>
-		<button id="sr">Search</button>
+		<input type="text">
+		<b></b><button type="button" id="sr" >Search</button>
 		</form>
 <p id="div_id"></p>
 
